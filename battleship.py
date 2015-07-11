@@ -25,16 +25,43 @@ def random_row(board):
 def random_col(board):
     return randint(0, len(board[0]) - 1)
 
-ship_row = random_row(board)
-ship_col = random_col(board)
-#print ship_row
-#print ship_col
+def create_battleship(board):
+    row = random_row(board)
+    col = random_col(board)
+    battleship = [row, col]
+    return battleship
+
+def ship_compare(ship1, ship2):
+    return ship1[0] == ship2[0] or ship1[1] == ship2[1]
+        
+def hit(ship, guess_row, guess_col):
+    return ship[0] == guess_row and ship[1] == guess_col
+
+
+
+
+#ship_row = random_row(board)
+#ship_col = random_col(board)
+
+
+
+#we're going to create 2 battleships
+ship1 = create_battleship(board)
+ship2 = create_battleship(board)
+comparison = ship_compare(ship1, ship2)
+while (comparison == True):
+    ship2 = create_battleship(board)
+    comparison = ship_compare(ship1, ship2)
+print ship1
+print ship2
+
 
 for turn in range(4):
     guess_row = int(raw_input("Guess Row:"))
     guess_col = int(raw_input("Guess Col:"))
     
-    if guess_row == ship_row and guess_col == ship_col:
+    
+    if hit(ship1, guess_row, guess_col) or hit(ship2, guess_row, guess_col):
         print "Congratulations! You sunk my battleship!"
         break
     else:
@@ -55,3 +82,5 @@ for turn in range(4):
             print "The ship was at row %s and column %s" %(ship_row, ship_col)
             print "Thanks for playing!"    
         
+
+
